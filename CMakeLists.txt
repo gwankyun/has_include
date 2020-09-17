@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 3.18)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # 包含模塊
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(CMakePrintHelpers)
 
 # 輸出目錄
@@ -17,13 +18,22 @@ project(has_include)
 add_compile_options(
   "$<$<CXX_COMPILER_ID:MSVC>:/W4;/MP>")
 
+set(HasInclude_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+find_package(HasInclude)
+if(HasInclude_FOUND)
+  cmake_print_variables(HasInclude_INCLUDE_DIRS)
+else()
+    message(FATAL_ERROR "Looking for HasInclude - not found")
+endif()
+
 # 執行文件
 add_executable(main)
 
 # 添加源碼
-target_sources(main PRIVATE src/main.cpp include/has_include.hpp)
+target_sources(main PRIVATE src/main.cpp)
 
-# 頭文件目錄
-target_include_directories(main
-  PRIVATE
-    include)
+# 引用庫
+target_link_libraries(main
+  PUBLIC
+    HasInclude::HasInclude
+)
