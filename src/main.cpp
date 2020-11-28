@@ -3,13 +3,21 @@
 #endif // _WIN32
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <has_include.hpp>
 
 #if __HAS_INCLUDE(tuple)
-#include <tuple>
+#  include <tuple>
+#  define TUPLE std::tuple
+#  define MAKE_TUPLE std::make_tuple
+#else
+#  include <boost/tuple/tuple.hpp>
+#  define TUPLE boost::tuple
+#  define MAKE_TUPLE boost::make_tuple
 #endif // __HAS_INCLUDE(tuple)
 
 int main(int argc, char* argv[])
 {
+    TUPLE<int, std::string> tpl(MAKE_TUPLE<int, std::string>(18, "Tom"));
     return 0;
 }

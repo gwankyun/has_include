@@ -1,5 +1,5 @@
 ﻿# cmake最低版本
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.19)
 
 # 啟用IDE目錄功能
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -15,16 +15,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 project(has_include)
 
 # 設置編譯選項
-add_compile_options(
-  "$<$<CXX_COMPILER_ID:MSVC>:/W4;/MP>")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/W4;/MP>;/Zc:__cplusplus;")
 
-set(HasInclude_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
-find_package(HasInclude)
-if(HasInclude_FOUND)
-  cmake_print_variables(HasInclude_INCLUDE_DIRS)
-else()
-    message(FATAL_ERROR "Looking for HasInclude - not found")
-endif()
+set(has_include_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+find_package(has_include REQUIRED)
+
+find_package(Boost REQUIRED)
 
 # 執行文件
 add_executable(main)
@@ -35,5 +31,5 @@ target_sources(main PRIVATE src/main.cpp)
 # 引用庫
 target_link_libraries(main
   PUBLIC
-    HasInclude::HasInclude
+    has_include::has_include Boost::headers
 )
