@@ -6,7 +6,7 @@
 #include <string>
 #include <has_include.hpp>
 
-#if __HAS_INCLUDE(tuple)
+#if HAS_INCLUDE(tuple)
 #  include <tuple>
 #  define TUPLE std::tuple
 #  define MAKE_TUPLE std::make_tuple
@@ -14,7 +14,7 @@
 #  include <boost/tuple/tuple.hpp>
 #  define TUPLE boost::tuple
 #  define MAKE_TUPLE boost::make_tuple
-#endif // __HAS_INCLUDE(tuple)
+#endif // HAS_INCLUDE(tuple)
 
 int main(int argc, char* argv[])
 {
