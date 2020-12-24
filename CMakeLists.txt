@@ -22,14 +22,12 @@ find_package(has_include REQUIRED)
 
 find_package(Boost REQUIRED)
 
-# 執行文件
-add_executable(main)
-
-# 添加源碼
-target_sources(main PRIVATE src/main.cpp)
-
-# 引用庫
-target_link_libraries(main
-  PUBLIC
-    has_include::has_include Boost::headers
+add_executable(has_include)
+target_sources(has_include PRIVATE
+  src/main.cpp
+  include/has_include.hpp
+  cmake/Findhas_include.cmake)
+target_link_libraries(has_include
+  PRIVATE
+    has_include::has_include
 )

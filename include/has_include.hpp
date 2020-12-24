@@ -15,11 +15,11 @@
 #endif
 
 #if (defined(_YVALS) && !defined(__IBMCPP__)) || defined(_CPPLIB_VER)
-#  include "has_include/boost/config/stdlib/dinkumware.hpp"
+#  include <boost/config/stdlib/dinkumware.hpp>
 #elif defined(_LIBCPP_VERSION)
-#  include "has_include/boost/config/stdlib/libcpp.hpp"
+#  include <boost/config/stdlib/libcpp.hpp>
 #elif defined(__GLIBCPP__) || defined(__GLIBCXX__)
-#  include "has_include/boost/config/stdlib/libstdcpp3.hpp"
+#  include <boost/config/stdlib/libstdcpp3.hpp>
 #endif //  (defined(_YVALS) && !defined(__IBMCPP__)) || defined(_CPPLIB_VER)
 
 #ifndef HAS_INCLUDE
