@@ -20,7 +20,7 @@
 #  include <boost/config/stdlib/libcpp.hpp>
 #elif defined(__GLIBCPP__) || defined(__GLIBCXX__)
 #  include <boost/config/stdlib/libstdcpp3.hpp>
-#endif //  (defined(_YVALS) && !defined(__IBMCPP__)) || defined(_CPPLIB_VER)
+#endif
 
 #ifndef HAS_INCLUDE
 #  if defined(__has_include)
@@ -50,7 +50,7 @@
 #    define HAS_INCLUDE_unordered_map !defined(BOOST_NO_CXX11_HDR_UNORDERED_MAP)
 #    define HAS_INCLUDE_unordered_set !defined(BOOST_NO_CXX11_HDR_UNORDERED_SET)
 #    define HAS_INCLUDE(header) HAS_INCLUDE_##header
-#  endif // defined(__has_include)
-#endif // !HAS_INCLUDE
+#  endif
+#endif
 
-#endif // !HAS_INCLUDE_HPP
+#endif
