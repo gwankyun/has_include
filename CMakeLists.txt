@@ -15,9 +15,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 # 項目名
 project(has_include)
 
+include(GNUInstallDirs)
+
 set(target has_include)
 
 add_library(${target} INTERFACE)
+
+# install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/has_include.hpp" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 target_include_directories(${target}
   INTERFACE
@@ -25,6 +31,7 @@ target_include_directories(${target}
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
+set(Boost_ROOT "C:/Program Files/boost_1_77_0")
 find_package(Boost REQUIRED)
 
 target_link_libraries(${target} INTERFACE Boost::headers)
