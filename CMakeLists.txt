@@ -1,27 +1,27 @@
 ﻿# cmake最低版本
 cmake_minimum_required(VERSION 3.21)
 
+# 項目名
+project(has_include)
+
 # 啟用IDE目錄功能
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-# 包含模塊
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-include(CMakePrintHelpers)
-include(common)
 
 # 輸出目錄
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
-# 項目名
-project(has_include)
-
+# 包含模塊
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+include(CMakePrintHelpers)
 include(GNUInstallDirs)
+include(common)
+
+# 設置編譯選項
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/W4;/MP>;/Zc:__cplusplus;")
 
 set(target has_include)
 
 add_library(${target} INTERFACE)
-
-# install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/has_include.hpp" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
@@ -31,22 +31,15 @@ target_include_directories(${target}
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-set(Boost_ROOT "C:/Program Files/boost_1_77_0")
+if(NOT Boost_ROOT)
+  set(Boost_ROOT "C:/Program Files/boost_1_77_0")
+endif()
+
 find_package(Boost REQUIRED)
 
 target_link_libraries(${target} INTERFACE Boost::headers)
 
 target_install(${target} "0.0.1")
-
-# 設置編譯選項
-add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/W4;/MP>;/Zc:__cplusplus;")
-
-# set(has_include_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
-# find_package(has_include REQUIRED)
-
-# set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-# find_package(has_include CONFIG REQUIRED)
-# cmake_print_variables(has_include_FOUND)
 
 add_executable(main)
 target_sources(main PRIVATE

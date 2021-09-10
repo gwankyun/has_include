@@ -22,6 +22,10 @@
 #  include <boost/config/stdlib/libstdcpp3.hpp>
 #endif
 
+#ifndef HAS_INCLUDE_CAT
+#  define HAS_INCLUDE_CAT(a, b) a##b
+#endif
+
 #ifndef HAS_INCLUDE
 #  if defined(__has_include)
 #    define HAS_INCLUDE(header) __has_include(<header>)
@@ -49,7 +53,7 @@
 #    define HAS_INCLUDE_type_traits !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
 #    define HAS_INCLUDE_unordered_map !defined(BOOST_NO_CXX11_HDR_UNORDERED_MAP)
 #    define HAS_INCLUDE_unordered_set !defined(BOOST_NO_CXX11_HDR_UNORDERED_SET)
-#    define HAS_INCLUDE(header) HAS_INCLUDE_##header
+#    define HAS_INCLUDE(header) HAS_INCLUDE_CAT(HAS_INCLUDE_, header)
 #  endif
 #endif
 

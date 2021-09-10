@@ -14,7 +14,7 @@
 #  include <boost/tuple/tuple.hpp>
 #  define TUPLE boost::tuple
 #  define MAKE_TUPLE boost::make_tuple
-#endif // HAS_INCLUDE(tuple)
+#endif
 
 #if HAS_INCLUDE(optional)
 #  pragma message("has <optional>")
@@ -22,6 +22,8 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
     std::cout << "hello" << std::endl;
     TUPLE<int, std::string> tpl(MAKE_TUPLE<int, std::string>(18, "Tom"));
     return 0;
