@@ -31,22 +31,19 @@ target_include_directories(${target}
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-if(NOT Boost_ROOT)
-  set(Boost_ROOT "C:/Program Files/boost_1_77_0")
-endif()
-
 find_package(Boost REQUIRED)
 
 target_link_libraries(${target} INTERFACE Boost::headers)
 
 target_install(${target} "0.0.1")
 
-add_executable(main)
-target_sources(main PRIVATE
+set(main has_include_main)
+add_executable(${main})
+target_sources(${main} PRIVATE
   src/main.cpp
   include/has_include.hpp
   cmake/Findhas_include.cmake)
-target_link_libraries(main
+target_link_libraries(${main}
   PRIVATE
     has_include
 )
