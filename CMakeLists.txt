@@ -37,13 +37,17 @@ target_link_libraries(${target} INTERFACE Boost::headers)
 
 target_install(${target} "0.0.1")
 
-set(main has_include_main)
-add_executable(${main})
-target_sources(${main} PRIVATE
-  src/main.cpp
-  include/has_include.hpp
-  cmake/Findhas_include.cmake)
-target_link_libraries(${main}
-  PRIVATE
-    has_include
-)
+string(COMPARE EQUAL ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR} cmp)
+
+if(cmp)
+  set(main has_include_main)
+  add_executable(${main})
+  target_sources(${main} PRIVATE
+    src/main.cpp
+    include/has_include.hpp
+    cmake/Findhas_include.cmake)
+  target_link_libraries(${main}
+    PRIVATE
+      has_include
+  )
+endif()
